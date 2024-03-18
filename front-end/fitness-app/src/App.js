@@ -3,6 +3,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
+import AdminDash from './Components/AdminDash';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<SignUp/>}/>
-            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/profile/:userId' element={<Profile/>}/>
+            <Route path='/admin' element={<AdminDash/>}/>
           </Routes>
         </BrowserRouter>
     </div>

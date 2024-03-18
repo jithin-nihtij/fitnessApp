@@ -1,0 +1,44 @@
+
+.profileParent{
+    background-color: blueviolet;
+    padding:20px ;
+}
+.profileDiv{ 
+    width: 70%;
+    margin: auto;
+    background-color: rgb(174, 122, 224);
+    padding: 20px;
+    border-radius: 20px;
+}
+.imgDiv{
+    display: flex;
+    justify-content: center;
+    
+}
+.imgDiv img{
+    object-fit: cover;
+    width: 80%;
+    border-radius:50px;
+    height: 250px;
+    object-position: center;
+}
+
+.userDetails{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+}
+
+.userDetails div{
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(217, 177, 255);
+    
+}
+
+@media screen and (max-width:644px){
+    .profileDiv{
+        width: 90%;
+    }
+}

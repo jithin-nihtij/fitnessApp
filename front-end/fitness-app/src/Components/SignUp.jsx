@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import "./SignUp.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
 
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate()
-    const [step, setStep] = useState(1);
+ 
     const [user, setUser] = useState({
       name: "",
       email: "",
@@ -30,10 +31,13 @@ function SignUp() {
     const handleSubmit = async (event) => {
       event.preventDefault();
   
-      if (step === 1) {
-        setStep(2);
-      } else {
+      
         try {
+
+         
+          
+
+
           const formData = new FormData();
           formData.append('name', user.name);
           formData.append('email', user.email);
@@ -61,19 +65,25 @@ function SignUp() {
             age: "",
             profileImage: null,
           });
-          setStep(1);
-          navigate('/profile')
+          
+          navigate('/login')
 
         } catch (error) {
-          console.error("Error creating user:", error);
+          if (error.response && error.response.status === 400) {
+            setErrorMessage("User already exists. Please login instead.");
+          } else {
+            console.error("Error creating user:", error);
+            setErrorMessage("Internal server error. Please try again later.");
+          }
         }
-      }
+      
     };
   
     return (
-      <div>
+      <div className="signUpParent">
         <div className="signUpDiv">
-          <Form onSubmit={handleSubmit} action="/upload" method="post" enctype="multipart/form-data">
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+          <Form onSubmit={handleSubmit} action="/upload" method="post" enctype="multipart/form-data" className="signUpForm">
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
@@ -104,10 +114,10 @@ function SignUp() {
               />
             </Form.Group>
   
-            {step === 2 && (
+         
               <>
                 <Form.Group className="mb-3">
-                  <Form.Label>Weight</Form.Label>
+                  
                   <Form.Control
                     type="number"
                     placeholder="Enter weight"
@@ -119,7 +129,7 @@ function SignUp() {
                 </Form.Group>
   
                 <Form.Group className="mb-3">
-                  <Form.Label>Height</Form.Label>
+                  
                   <Form.Control
                     type="number"
                     placeholder="Enter height"
@@ -131,7 +141,7 @@ function SignUp() {
                 </Form.Group>
   
                 <Form.Group className="mb-3">
-                  <Form.Label>Age</Form.Label>
+                  
                   <Form.Control
                     type="number"
                     placeholder="Enter age"
@@ -151,11 +161,17 @@ function SignUp() {
                   />
                 </Form.Group>
               </>
-            )}
-  
-            <Button variant="primary" type="submit">
-              {step === 1 ? 'Next' : 'Create an account'}
+          
+            <div style={{display:"flex",justifyContent:"center"}}>
+            <Button  variant="primary" type="submit">
+               Create an account
             </Button>
+            </div>
+            
+            <div className="text-center">
+            Already have an account?<Link to='/login'>Login</Link>
+            </div>
+            
           </Form>
         </div>
       </div>

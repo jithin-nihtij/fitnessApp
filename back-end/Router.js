@@ -20,5 +20,5 @@ router.route('/singleUser/:id').get(singleUser)
 router.route('/deleteUser/:id').delete(deleteUser)
 
 
-
+ 
 module.exports = router

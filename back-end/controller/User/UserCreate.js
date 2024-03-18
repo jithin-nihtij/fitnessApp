@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         if (req.file) {
             image = req.file.filename;
         }
-
+        
         const userCreate = await fitnessUser.create({
             name, email, password: hashedPassword, weight, height, age,profileImg:image
         });

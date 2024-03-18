@@ -11,7 +11,8 @@ const loginUser = async(req,res)=>{
     if(loginUser && await bcrypt.compare(password,loginUser.password)){
         return res.json({
             message:"success",
-            token:generateToken(loginUser._id)  
+            token:generateToken(loginUser._id),
+            userId:loginUser._id
         })
     }
 
