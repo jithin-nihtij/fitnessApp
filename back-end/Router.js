@@ -7,18 +7,20 @@ const updateUser = require('./controller/User/UpdateUser')
 const getUser = require('./controller/User/GetUser')
 const singleUser = require('./controller/User/GetSingleUser')
 const deleteUser = require('./controller/User/DeleteUser')
+const protect = require('./Middleware/TokenVerify')
 
 
 const router = express.Router()
+const middleware = [protect]
 
 router.route('/createUser').post(uploaded.single('profileImg'),createUser) 
 router.route('/loginUser').post(loginUser)
 router.route('/admin').post(createAdmin) 
-router.route('/updateUser/:id').put(updateUser)
+router.route('/updateUser/:id').put(middleware,updateUser)
 router.route('/getUser').get(getUser)
 router.route('/singleUser/:id').get(singleUser)
 router.route('/deleteUser/:id').delete(deleteUser)
 
 
- 
+  
 module.exports = router

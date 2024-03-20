@@ -3,7 +3,7 @@ const fitnessUser = require("./UserSchema");
 const { genSalt, hash } = require("bcrypt");
 
 const createUser = async (req, res) => {
-    const { name, email, password, weight, height, age } = req.body;
+    const { name, email, password, weight, height, dob,goal } = req.body;
     let image;
 
     const existingUser = await fitnessUser.findOne({ email });
@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
         }
         
         const userCreate = await fitnessUser.create({
-            name, email, password: hashedPassword, weight, height, age,profileImg:image
+            name, email, password: hashedPassword, weight, height, dob,goal,profileImg:image
         });
         return res.status(201).json(userCreate);
 

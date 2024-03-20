@@ -6,10 +6,11 @@ const userSchema = mongoose.Schema({
     password:{type:String},
     weight:{type:Number},
     height:{type:Number},
-    age:{type:Number},
+    dob:{type:String},
+    goal:{type:String},
     profileImg:{type:String}
 })
 
-const fitnessUser = mongoose.model("FitnessUser",userSchema)
+const fitnessUser = mongoose.model("FitnessUser",userSchema) 
 
 module.exports = fitnessUser
